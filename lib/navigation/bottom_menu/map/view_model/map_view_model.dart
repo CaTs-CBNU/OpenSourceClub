@@ -1,13 +1,15 @@
-import 'dart:async';
-
+import 'package:cats/util/location_util.dart';
+import 'package:cats/util/logger_util.dart';
 import 'package:flutter/material.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 class MapViewModel extends ChangeNotifier {
   bool _disposed = false;
   LatLng? _latLng = LatLng(37.506502, 127.053617);
   LatLng? get latLng => _latLng;
+  KakaoMapController? _controller;
+  KakaoMapController? get controller => _controller;
 
   @override
   void dispose() {
@@ -35,6 +37,8 @@ class MapViewModel extends ChangeNotifier {
 
   void setLatLng(LatLng latLng) {
     _latLng = latLng;
+    LoggerUtil.info("position setLatLng: $_latLng");
+
     notifyListeners();
   }
 
@@ -43,17 +47,15 @@ class MapViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void startLocationUpdates() {
-    const Duration updateInterval = Duration(seconds: 1); // 업데이트 간격
-    Timer.periodic(updateInterval, (Timer timer) async {
-      await _updateLocation();
-    });
+  void setController(KakaoMapController controller) {
+    _controller = controller;
+    notifyListeners();
   }
 
-  Future<void> _updateLocation() async {
+  Future<void> updateLocation() async {
     // 위치 정보 가져오기
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position position = await LocationUtil.determinePosition();
+    LoggerUtil.info("position updateLocation: $position");
     Marker currentMarker = Marker(
       latLng: LatLng(position.latitude, position.longitude),
       markerId: "userLocation",
@@ -72,6 +74,9 @@ class MapViewModel extends ChangeNotifier {
     }
     // ViewModel에 위치 업데이트
     setLatLng(
+      LatLng(position.latitude, position.longitude),
+    );
+    controller!.panTo(
       LatLng(position.latitude, position.longitude),
     );
     notifyListeners();

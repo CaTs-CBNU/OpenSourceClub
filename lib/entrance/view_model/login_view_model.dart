@@ -1,5 +1,4 @@
 import 'package:cats/entrance/model/login_data_model.dart';
-import 'package:cats/util/logger_util.dart';
 import 'package:cats/util/permission_util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

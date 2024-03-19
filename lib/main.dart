@@ -7,7 +7,7 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AuthRepository.initialize(appKey: AppKey.KAKAOMAP_JAVASCRIPT_KEY);
+  AuthRepository.initialize(appKey: AppKey.kakaoMapJavascriptKey);
   // KakaoSdk.init(
   //     nativeAppKey: AppKey.KAKAOMAP_NATIVE_KEY,
   //     javaScriptAppKey: AppKey.KAKAOMAP_JAVASCRIPT_KEY); // 이 줄을 runApp 위에 추가한다.

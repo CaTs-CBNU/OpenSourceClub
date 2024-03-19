@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cats/util/logger_util.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationUtil {
@@ -39,7 +40,7 @@ class LocationUtil {
           try {
             return await getPosition();
           } catch (error) {
-            print('Error getting position: $error');
+            LoggerUtil.error('Error getting position: $error');
             rethrow;
           }
         },
