@@ -43,6 +43,11 @@ dependencies:
   kakao_flutter_sdk: ^1.9.0
   geolocator: ^11.0.0
   permission_handler: ^11.3.0
+  http: ^1.2.0
+  animated_text_kit: ^4.2.2
+  page_transition: ^2.1.0
+  modal_bottom_sheet: ^3.0.0-pre
+  searchable_listview: ^2.11.0
 
 dev_dependencies:
   flutter_test:
